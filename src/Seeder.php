@@ -4,6 +4,7 @@ namespace Sagar\WpSeeder;
 
 use Sagar\WpSeeder\Commands\PostCommand;
 use Sagar\WpSeeder\Commands\UserCommand;
+use Sagar\WpSeeder\Commands\CommentCommand;
 
 class Seeder {
     /**
@@ -29,7 +30,7 @@ class Seeder {
     }
 
     public function comment($args, $assoc_args) {
-
+        (new CommentCommand())->run($args, $assoc_args);
     }
 
     public function terms( $args, $assoc_args ) {
