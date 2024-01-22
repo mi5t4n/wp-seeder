@@ -1,0 +1,15 @@
+{
+    "name": "mi5t4n/wp-seeder",
+    "autoload": {
+        "psr-4": {
+            "Mi5t4n\\WpSeeder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sagar Tamang",
+            "email": "mi5t4n@gmail.com"
+        }
+    ],
+    "require": {}
+}
