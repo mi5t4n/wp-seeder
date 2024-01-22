@@ -5,6 +5,13 @@ namespace Sagar\WpSeeder;
 class Main {
 
     /**
+     * Cli instance.
+     *
+     * @var [type]
+     */
+    protected $cli;
+
+    /**
      * Instance.
      *
      * @var self
@@ -22,5 +29,17 @@ class Main {
         }
 
         return self::$instance;
+    }
+
+    public function init(){
+        $this->init_hooks();
+    }
+
+    public function init_hooks() {
+        add_action( 'cli_init', array( $this, 'register_cli_commands' ) );
+    }
+
+    public function register_cli_commands() {
+        \WP_CLI::add_command( "seeder", Seeder::class );
     }
 }

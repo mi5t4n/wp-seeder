@@ -13,6 +13,8 @@
  *
  */
 
+use Sagar\WpSeeder\Main;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WP_SEEDER_PLUGIN_FILE' ) ) {
@@ -20,3 +22,5 @@ if ( ! defined( 'WP_SEEDER_PLUGIN_FILE' ) ) {
 }
 
 require dirname( __FILE__ ) . '/vendor/autoload.php';
+
+Main::instance()->init();

@@ -2,7 +2,7 @@
     "name": "mi5t4n/wp-seeder",
     "autoload": {
         "psr-4": {
-            "Mi5t4n\\WpSeeder\\": "src/"
+            "Sagar\\WpSeeder\\": "src/"
         }
     },
     "authors": [
@@ -11,5 +11,14 @@
             "email": "mi5t4n@gmail.com"
         }
     ],
-    "require": {}
+    "config": {
+        "preferred-install": "dist",
+        "platform": {
+            "php": "7.4.3"
+        }
+    },
+    "require": {
+        "php": ">=7.4.3",
+        "fakerphp/faker": "^1.23"
+    }
 }
