@@ -3,6 +3,7 @@
 namespace Sagar\WpSeeder;
 
 use Sagar\WpSeeder\Commands\PostCommand;
+use Sagar\WpSeeder\Commands\UserCommand;
 
 class Seeder {
     /**
@@ -34,8 +35,25 @@ class Seeder {
     public function terms( $args, $assoc_args ) {
 
     }
-
-    public function users( $args, $assoc_args ) {
-
+ /**
+	 * Generate users
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--role=<role>]
+	 * : Roles to be generated.
+	 * ---
+	 * default: subscriber
+	 *
+	 * [--count=<count>]
+	 * : Total number of users to be generated.
+	 * ---
+	 * default: 100
+	 *
+	 * @param array $args Arguments in array format.
+	 * @param array $assoc_args Key value arguments stored in associated array format.
+	 */
+    public function user( $args, $assoc_args ) {
+        (new UserCommand())->run($args, $assoc_args);
     }
 }
