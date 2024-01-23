@@ -1,31 +1,36 @@
 <?php
 /**
- * User command.
+ * Attachment command.
  */
 
 namespace Sagar\WpSeeder\Commands;
 
-use Sagar\WpSeeder\Factories\UserFactory;
+use Sagar\WpSeeder\Factories\AttachmentFactory;
 use function WP_CLI\Utils\make_progress_bar;
 
-class UserCommand {
+class AttachmentCommand {
 
-    protected $label = 'Generating Users';
+    protected $label = 'Generating Attachments';
 
     public function run( $args, $assoc_args ) {
+        add_filter( 'intermediate_image_sizes', '__return_empty_array' );
+
         $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 100;
 
         $progress = make_progress_bar( $this->label, $count );
 
-        $batch = 50;
-        $factory = new UserFactory();
+        $batch = 5;
+        $factory = new AttachmentFactory();
+
 
         for( $index = 0; $index < $count; $index += $batch) {
-            $factory->set_count( $count )->set_batch( $batch )->insert();
+            $factory->set_count( $count )->set_batch( $batch )->download();
 
             $progress->tick($batch);
         }
 
         $progress->finish();
+
+        remove_filter( 'intermediate_image_sizes', '__return_empty_array' );
     }
 }

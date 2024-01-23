@@ -19,6 +19,7 @@
     },
     "require": {
         "php": ">=7.4.3",
-        "fakerphp/faker": "^1.23"
+        "fakerphp/faker": "^1.23",
+        "rmccue/requests": "^2.0"
     }
 }

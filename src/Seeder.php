@@ -5,6 +5,7 @@ namespace Sagar\WpSeeder;
 use Sagar\WpSeeder\Commands\PostCommand;
 use Sagar\WpSeeder\Commands\UserCommand;
 use Sagar\WpSeeder\Commands\CommentCommand;
+use Sagar\WpSeeder\Commands\AttachmentCommand;
 
 class Seeder {
     /**
@@ -36,7 +37,8 @@ class Seeder {
     public function terms( $args, $assoc_args ) {
 
     }
- /**
+
+	/**
 	 * Generate users
 	 *
 	 * ## OPTIONS
@@ -56,5 +58,23 @@ class Seeder {
 	 */
     public function user( $args, $assoc_args ) {
         (new UserCommand())->run($args, $assoc_args);
+    }
+
+
+	/**
+	 * Generate attachments
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--count=<count>]
+	 * : Total number of attachments to be generated.
+	 * ---
+	 * default: 100
+	 *
+	 * @param array $args Arguments in array format.
+	 * @param array $assoc_args Key value arguments stored in associated array format.
+	 */
+    public function attachment( $args, $assoc_args ) {
+        (new AttachmentCommand())->run($args, $assoc_args);
     }
 }
