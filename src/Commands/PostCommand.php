@@ -17,10 +17,9 @@ class PostCommand {
         $progress = make_progress_bar( $this->label, $count );
 
         $batch = 50;
-        $factory = new PostFactory();
 
         for( $index = 0; $index < $count; $index += $batch) {
-            $factory->set_count( $count )->set_batch( $batch )->insert();
+            PostFactory::instance()->count( $batch)->create();
 
             $progress->tick($batch);
         }

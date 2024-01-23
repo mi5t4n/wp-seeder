@@ -5,26 +5,9 @@
 
 namespace Sagar\WpSeeder\Factories;
 
-use Faker\Factory;
+use Sagar\WpSeeder\Abstracts\Factory as Factory;
 
-
-class PostFactory {
-
-    /**
-     * Faker
-     *
-     * @var Faker\Generator
-     */
-    protected $faker;
-
-    protected $batch = 50;
-
-    protected $count = 100;
-
-
-    public function __construct(){
-        $this->faker = Factory::create();
-    }
+class PostFactory extends Factory{
 
     public function definition() {
         return array(
@@ -34,31 +17,9 @@ class PostFactory {
         );
     }
 
-    public function set_batch( $batch ) {
-        $this->batch = (int) $batch;
-        return $this;
-    }
-
-    public function get_batch() {
-        return $this->batch;
-    }
-
-    public function get_count() {
-        return $this->count;
-    }
-
-    public function set_count( $count ) {
-        $this->count = (int) $count;
-        return $this;
-    }
-
-    public function get_wpdb() {
-        return $GLOBALS['wpdb'];
-    }
-
-    public function get_query() {
-        $batch = $this->get_batch();
-        $wpdb = $this->get_wpdb();
+    public function query() {
+        $count = $this->count;
+        $wpdb = $this->wpdb();
 
         if ( ! $wpdb ) {
             return;
@@ -73,7 +34,7 @@ class PostFactory {
         $placeholders = '(' . join( ',', $placeholders ) . ')';
 
         $values = [];
-        for( $index = 0 ; $index < $batch; ++$index ) {
+        for( $index = 0 ; $index < $count; ++$index ) {
             $values[] = $wpdb->prepare(
                 $placeholders,
                 array_values( $this->definition() )
@@ -85,13 +46,5 @@ class PostFactory {
         $sql = "{$sql} {$columns} VALUES {$values};";
 
         return $sql;
-    }
-
-    public function insert() {
-        $wpdb = $this->get_wpdb();
-
-        $sql = $this->get_query();
-
-        $wpdb->query( $sql );
     }
 }

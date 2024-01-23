@@ -18,10 +18,8 @@ class UserCommand {
         $progress = make_progress_bar( $this->label, $count );
 
         $batch = 50;
-        $factory = new UserFactory();
-
         for( $index = 0; $index < $count; $index += $batch) {
-            $factory->set_count( $count )->set_batch( $batch )->insert();
+            UserFactory::instance()->count( $batch )->create();
 
             $progress->tick($batch);
         }
