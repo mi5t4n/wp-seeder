@@ -71,15 +71,15 @@ class Seeder {
 	 *
 	 * ## OPTIONS
 	 *
-	 * [--role=<role>]
-	 * : Roles to be generated.
+	 * [--batch=<batch>]
+	 * : Number of users to inserted in batch.
 	 * ---
-	 * default: subscriber
+	 * default: 100
 	 *
 	 * [--count=<count>]
 	 * : Total number of users to be generated.
 	 * ---
-	 * default: 100
+	 * default: 1000
 	 *
 	 * @param array $args Arguments in array format.
 	 * @param array $assoc_args Key value arguments stored in associated array format.
@@ -87,7 +87,6 @@ class Seeder {
     public function user( $args, $assoc_args ) {
         (new UserCommand())->run($args, $assoc_args);
     }
-
 
 	/**
 	 * Generate attachments

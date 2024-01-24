@@ -13,11 +13,11 @@ class UserCommand {
     protected $label = 'Generating Users';
 
     public function run( $args, $assoc_args ) {
-        $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 100;
+        $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 1000;
+        $batch = isset( $assoc_args['batch'] ) ? absint( $assoc_args['batch'] ) : 100;
 
         $progress = make_progress_bar( $this->label, $count );
 
-        $batch = 50;
         for( $index = 0; $index < $count; $index += $batch) {
             UserFactory::instance()->count( $batch )->create();
 
