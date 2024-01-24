@@ -98,6 +98,11 @@ class Seeder {
 	 * ---
 	 * default: 100
 	 *
+	 * [--batch=<batch>]
+	 * : Number of attachments to inserted in batch.
+	 * ---
+	 * default: 15
+	 *
 	 * @param array $args Arguments in array format.
 	 * @param array $assoc_args Key value arguments stored in associated array format.
 	 */

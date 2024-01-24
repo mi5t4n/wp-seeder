@@ -16,10 +16,9 @@ class AttachmentCommand {
         add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
         $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 100;
+        $batch = isset( $assoc_args['batch'] ) ? absint( $assoc_args['batch'] ) : 5;
 
         $progress = make_progress_bar( $this->label, $count );
-
-        $batch = 5;
 
         for( $index = 0; $index < $count; $index += $batch) {
             AttachmentFactory::instance()->count( $batch )->create();
