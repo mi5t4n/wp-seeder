@@ -9,11 +9,19 @@ use Sagar\WpSeeder\Abstracts\Factory as Factory;
 
 class PostFactory extends Factory{
 
+    protected $post_type = 'post';
+
+    public function post_type( $post_type ) {
+        $this->post_type = $post_type;
+
+        return $this;
+    }
+
     public function definition() {
         return array(
             'post_title' => $this->faker->text(),
             'post_content' => $this->faker->text(),
-            'post_type' => 'post'
+            'post_type' => $this->post_type
         );
     }
 

@@ -17,7 +17,7 @@ class UserFactory extends Factory {
         );
     }
 
-    public function create() {
+    public function query() {
         $count = $this->count;
         $wpdb = $this->wpdb();
 

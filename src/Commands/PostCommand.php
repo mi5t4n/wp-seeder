@@ -13,13 +13,15 @@ class PostCommand {
 
     public function run( $args, $assoc_args ) {
         $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 100;
+        $post_type = isset( $assoc_args['post_type'] ) ? sanitize_text_field( $assoc_args['post_type'] ) : 'post';
+
 
         $progress = make_progress_bar( $this->label, $count );
 
         $batch = 50;
 
         for( $index = 0; $index < $count; $index += $batch) {
-            PostFactory::instance()->count( $batch)->create();
+            PostFactory::instance()->count( $batch)->post_type($post_type)->create();
 
             $progress->tick($batch);
         }
