@@ -18,10 +18,15 @@ class Seeder {
 	 * ---
 	 * default: post
 	 *
+	 * [--batch=<batch>]
+	 * : Number of posts to inserted in batch.
+	 * ---
+	 * default: 100
+	 *
 	 * [--count=<count>]
 	 * : Total number of posts to be generated.
 	 * ---
-	 * default: 100
+	 * default: 1000
 	 *
 	 * @param array $args Arguments in array format.
 	 * @param array $assoc_args Key value arguments stored in associated array format.
