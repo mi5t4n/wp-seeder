@@ -12,7 +12,7 @@ class UserFactory extends Factory {
         return array(
             'user_pass' => $this->faker->password(),
             'user_login' => $this->faker->username(),
-            'user_email' => $this->faker->safeEmail(),
+            'user_email' => $this->faker->unique()->safeEmail(),
             'user_nicename' => $this->faker->username(),
         );
     }
