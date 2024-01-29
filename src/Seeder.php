@@ -127,6 +127,11 @@ class Seeder {
 	 *
 	 * ## OPTIONS
 	 *
+	 * [--role=<role>]
+	 * : Role of the user to be generated.
+	 * ---
+	 * default: subscriber
+	 *
 	 * [--batch=<batch>]
 	 * : Number of users to inserted in batch.
 	 * ---

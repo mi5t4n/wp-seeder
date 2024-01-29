@@ -8,6 +8,13 @@ namespace Sagar\WpSeeder\Factories;
 use Sagar\WpSeeder\Abstracts\Factory;
 
 class UserFactory extends Factory {
+    protected $role = 'subscriber';
+
+    public function role( $role ) {
+        $this->role = [$role => 1];
+        return $this;
+    }
+
     public function definition() {
         return array(
             'user_pass' => $this->faker->password(),
@@ -46,5 +53,44 @@ class UserFactory extends Factory {
         $sql = "{$sql} {$columns} VALUES {$values};";
 
         return $sql;
+    }
+
+
+    public function create() {
+        $this->create_users();
+
+        $wpdb = $this->wpdb();
+        $row_count = $wpdb->get_var( 'SELECT ROW_COUNT() as rows_affected');
+        $last_insert_id = $wpdb->get_var( 'SELECT LAST_INSERT_ID()');
+
+        $this->create_users_meta( $last_insert_id, $last_insert_id + $row_count - 1 );
+    }
+
+    protected function create_users() {
+        $wpdb = $this->wpdb();
+
+        $sql = $this->query();
+
+        $wpdb->query( $sql );
+    }
+
+    protected function create_users_meta( $start_user_id, $end_user_id ) {
+        $wpdb = $this->wpdb();
+        $sql = "INSERT INTO {$wpdb->usermeta} (user_id, meta_key, meta_value)";
+
+        foreach( range($start_user_id, $end_user_id ) as $user_id ) {
+            $values[] =$wpdb->prepare(
+                "(%d, %s, %s)",
+                $user_id,
+                "{$wpdb->base_prefix}capabilities",
+                maybe_serialize( $this->role)
+            );
+        }
+
+        $values = join(',', $values );
+
+        $sql = "{$sql} VALUES {$values};";
+
+        $wpdb->query( $sql );
     }
 }
