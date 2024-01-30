@@ -9,11 +9,18 @@ use Sagar\WpSeeder\Abstracts\Factory as Factory;
 
 class PostFactory extends Factory{
 
+    protected $meta_count = 5;
+
     protected $post_type = 'post';
 
     public function post_type( $post_type ) {
         $this->post_type = $post_type;
 
+        return $this;
+    }
+
+    public function meta_count( $meta_count ) {
+        $this->meta_count = $meta_count;
         return $this;
     }
 
@@ -67,5 +74,47 @@ class PostFactory extends Factory{
         $sql = "{$sql} {$columns} VALUES {$values};";
 
         return $sql;
+    }
+
+    protected function create_posts() {
+        $wpdb = $this->wpdb();
+
+        $sql = $this->query();
+
+        $wpdb->query( $sql );
+    }
+
+    public function create() {
+        $this->create_posts();
+
+        if ( $this->meta_count) {
+            $wpdb = $this->wpdb();
+            $row_count = $wpdb->get_var( 'SELECT ROW_COUNT() as rows_affected');
+            $last_insert_id = $wpdb->get_var( 'SELECT LAST_INSERT_ID()');
+
+            $this->create_post_metas( $last_insert_id, $last_insert_id + $row_count - 1 );
+        }
+    }
+
+    public function create_post_metas($start_post_id, $end_post_id ) {
+        $wpdb = $this->wpdb();
+        $sql = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)";
+
+        foreach( range($start_post_id, $end_post_id ) as $post_id ) {
+            foreach( range(1, $this->meta_count) as $index ) {
+                $values[] =$wpdb->prepare(
+                    "(%d, %s, %s)",
+                    $post_id,
+                    $this->faker->word(),
+                    maybe_serialize( $this->faker->sentence())
+                );
+            }
+        }
+
+        $values = join(',', $values );
+
+        $sql = "{$sql} VALUES {$values};";
+
+        $wpdb->query( $sql );
     }
 }

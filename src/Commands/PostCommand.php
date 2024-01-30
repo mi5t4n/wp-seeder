@@ -14,11 +14,16 @@ class PostCommand {
     public function run( $args, $assoc_args ) {
         $count = isset( $assoc_args['count'] ) ? absint( $assoc_args['count'] ) : 1000;
         $batch = isset( $assoc_args['batch'] ) ? absint( $assoc_args['batch'] ) : 100;
+        $meta_count = isset( $assoc_args['meta_count'] ) ? absint( $assoc_args['meta_count'] ) : 5;
         $post_type = isset( $assoc_args['post_type'] ) ? sanitize_text_field( $assoc_args['post_type'] ) : 'post';
 
         $progress = make_progress_bar( $this->label, $count );
         for( $index = 0; $index < $count; $index += $batch) {
-            PostFactory::instance()->count( $batch)->post_type($post_type)->create();
+            PostFactory::instance()
+                ->count( $batch)
+                ->meta_count($meta_count)
+                ->post_type($post_type)
+                ->create();
 
             $progress->tick($batch);
         }

@@ -30,6 +30,11 @@ class Seeder {
 	 * ---
 	 * default: 1000
 	 *
+	 * [--meta_count=<meta_count>]
+	 * : Total number of post metas to be generated.
+	 * ---
+	 * default: 5
+	 *
 	 * @param array $args Arguments in array format.
 	 * @param array $assoc_args Key value arguments stored in associated array format.
 	 */
